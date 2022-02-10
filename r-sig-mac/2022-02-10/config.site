@@ -1,8 +1,7 @@
 #! /bin/sh
 
 LIB_DIR=/opt/R/arm64
-OMP_DIR=/usr/local
-BRW_DIR=/opt/homebrew/opt
+OTHER_LIB_DIR=/usr/local
 
 ### This file is part of R.
 ###
@@ -74,7 +73,7 @@ CFLAGS="-falign-functions=64 -g -O2 -Wall -pedantic -Wno-implicit-function-decla
 ## options (such as defines) for the C preprocessor and compiler.
 ## If unset defaults to '-I/usr/local/include', with '-I/sw/include'
 ## prepended on systems using Fink with root '/sw'.
-CPPFLAGS="-I${BRW_DIR}/zlib/include -I${LIB_DIR}/include -I${OMP_DIR}/include -Xclang -fopenmp"
+CPPFLAGS="-I${LIB_DIR}/include -I${OTHER_LIB_DIR}/include -Xclang -fopenmp"
 
 ## The command which runs the Fortran compiler.
 ## Used for both fixed-form and free-form Fortran
@@ -165,7 +164,7 @@ FFLAGS="-Wall -g -O2 -pedantic"
 ## on macOS systems using Fink with root '/sw'.
 ## On some Linux 64-bit systems its default is -L/usr/local/lib64.
 ## If LIBnn is set it defaults to -L/usr/local/$LIBnn.
-LDFLAGS="-L${BRW_DIR}/zlib/lib -L${LIB_DIR}/lib -L${OMP_DIR}/lib -lomp"
+LDFLAGS="-L${LIB_DIR}/lib -L${OTHER_LIB_DIR}/lib -lomp"
 
 
 ## The command which runs the C++ compiler.
@@ -248,7 +247,7 @@ R_BROWSER=/Applications/Firefox.app/Contents/MacOS/firefox
 ## This is be default created from libraries added to LIBS.
 ## Used for DYLD_FALLBACK_LIBRARY_PATH on macOS and LD_LIBRARY_PATH elsewhere.
 ## Allow user to override.
-R_LD_LIBRARY_PATH=${BRW_DIR}/zlib/lib:${LIB_DIR}/lib
+R_LD_LIBRARY_PATH=${LIB_DIR}/lib
 
 ## C++11 compiler, optional for use in packages.
 ## Introduced in R 3.1.0
@@ -345,7 +344,7 @@ R_LD_LIBRARY_PATH=${BRW_DIR}/zlib/lib:${LIB_DIR}/lib
 ## and possibly jpeg, libpng and libtiff.
 PKG_CONFIG=${LIB_DIR}/bin/pkg-config
 ## search path for pkg-config
-PKG_CONFIG_PATH=${LIB_DIR}/lib/pkgconfig:/opt/X11/lib/pkgconfig:${BRW_DIR}/zlib/lib/pkgconfig
+PKG_CONFIG_PATH=${LIB_DIR}/lib/pkgconfig:${OTHER_LIB_DIR}/lib/pkgconfig:/opt/X11/lib/pkgconfig
 ## path overriding pkg-config's default search path
 ## PKG_CONFIG_LIBDIR=
 
